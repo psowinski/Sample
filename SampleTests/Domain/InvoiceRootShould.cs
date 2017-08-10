@@ -40,10 +40,11 @@ namespace SampleTests.Domain
       }
 
       [Fact]
-      public void CreateZeroStateInvoiceAsBlank()
+      public void CreateZeroStateInvoice()
       {
          var zeroState = this.invoiceRoot.CreateZeroState();
          Assert.True(zeroState.IsBlank);
+         Assert.False(zeroState.IsOpen);
       }
 
       [Fact]
