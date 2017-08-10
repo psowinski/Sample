@@ -1,5 +1,8 @@
-﻿using Sample.Domain;
+﻿using System;
+using Moq;
+using Sample.Domain;
 using Sample.Domain.Command;
+using Sample.Domain.Event;
 using Sample.Model;
 using Xunit;
 
@@ -7,18 +10,26 @@ namespace SampleTests.Domain
 {
    public class InvoiceRootShould
    {
+      private readonly InvoiceRoot invoiceRoot = new InvoiceRoot();
+
       [Fact]
       public void AllowToCreateZeroStateInvoice()
       {
-         var invoiceRoot = new InvoiceRoot();
-         Assert.IsAssignableFrom<IInvoice>(invoiceRoot.CreateZeroState());
+         Assert.IsAssignableFrom<IInvoice>(this.invoiceRoot.CreateZeroState());
       }
 
       [Fact]
       public void AllowToOpenAnInvoice()
       {
-         var invoiceRoot = new InvoiceRoot();
-         var openCommand = new OpenInvoiceCommand("CustormerId");
+         var customerId = "123";
+         var openCommand = new OpenInvoiceCommand(customerId);
+
+         IEvent @event = null;
+         using (this.invoiceRoot.Subscribe(x => @event = x))
+         {
+            this.invoiceRoot.ExecuteCommand(new Mock<IInvoice>().Object, openCommand);
+            Assert.Equal(customerId, (@event as InvoiceOpenEvent).CustomerId);
+         }
       }
    }
 }
