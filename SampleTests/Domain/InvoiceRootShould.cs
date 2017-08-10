@@ -3,7 +3,7 @@ using Sample.Domain.Command;
 using Sample.Model;
 using Xunit;
 
-namespace SampleTests
+namespace SampleTests.Domain
 {
    public class InvoiceRootShould
    {
