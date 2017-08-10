@@ -70,6 +70,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\Command\OpenInvoiceCommand.cs" />
     <Compile Include="Domain\Event\IEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
