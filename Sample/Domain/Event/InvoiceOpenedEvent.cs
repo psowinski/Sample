@@ -1,10 +1,10 @@
 ﻿namespace Sample.Domain.Event
 {
-   public class InvoiceOpenEvent : IEvent
+   public class InvoiceOpenedEvent : IEvent
    {
       public string CustomerId { get; }
 
-      public InvoiceOpenEvent(string customerId)
+      public InvoiceOpenedEvent(string customerId)
       {
          CustomerId = customerId;
       }

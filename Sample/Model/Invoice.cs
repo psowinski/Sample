@@ -2,6 +2,11 @@
 {
    internal class Invoice : IInvoice
    {
-      public bool IsOpen { get; private set; }
+      public Invoice()
+      {
+         IsBlank = true;
+      }
+
+      public bool IsBlank { get; }
    }
 }

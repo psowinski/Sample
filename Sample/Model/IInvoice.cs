@@ -2,6 +2,6 @@
 {
    public interface IInvoice
    {
-      bool IsOpen { get; }
+      bool IsBlank { get; }
    }
 }

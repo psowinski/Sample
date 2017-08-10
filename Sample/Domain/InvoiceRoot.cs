@@ -17,7 +17,8 @@ namespace Sample.Domain
 
       public void ExecuteCommand(IInvoice invoice, OpenInvoiceCommand openCommand)
       {
-         Publish(new InvoiceOpenEvent(openCommand.CustomerId));
+         if(!invoice.IsBlank) throw new InvalidOperationException("Only blank invoice can be opened.");
+         Publish(new InvoiceOpenedEvent(openCommand.CustomerId));
       }
 
       private readonly Subject<IEvent> eventSubject = new Subject<IEvent>();

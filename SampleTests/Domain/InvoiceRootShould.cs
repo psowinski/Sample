@@ -12,6 +12,7 @@ namespace SampleTests.Domain
    public class InvoiceRootShould
    {
       private readonly InvoiceRoot invoiceRoot = new InvoiceRoot();
+      private readonly Mock<IInvoice> invoice = new Mock<IInvoice>();
 
       [Fact]
       public void AllowToCreateZeroStateInvoice()
@@ -25,22 +26,31 @@ namespace SampleTests.Domain
          var customerId = "123";
          var openCommand = new OpenInvoiceCommand(customerId);
 
-         InvoiceOpenEvent @event = null;
+         InvoiceOpenedEvent @event = null;
          using (this.invoiceRoot
-            .Where(x => x is InvoiceOpenEvent)
-            .Select(x => x as InvoiceOpenEvent)
+            .Where(x => x is InvoiceOpenedEvent)
+            .Select(x => x as InvoiceOpenedEvent)
             .Subscribe(x => @event = x))
          {
-            this.invoiceRoot.ExecuteCommand(new Mock<IInvoice>().Object, openCommand);
+            this.invoice.SetupGet(x => x.IsBlank).Returns(true);
+
+            this.invoiceRoot.ExecuteCommand(this.invoice.Object, openCommand);
             Assert.Equal(customerId, @event.CustomerId);
          }
       }
 
       [Fact]
-      public void CreateZeroStateInvoiceAsClosed()
+      public void CreateZeroStateInvoiceAsBlank()
       {
-         var invoice = this.invoiceRoot.CreateZeroState();
-         Assert.False(invoice.IsOpen);
+         var zeroState = this.invoiceRoot.CreateZeroState();
+         Assert.True(zeroState.IsBlank);
+      }
+
+      [Fact]
+      public void NotAllowToOpenAnInvoiceIfItIsNotBlank()
+      {
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.ExecuteCommand(this.invoice.Object, new OpenInvoiceCommand("123")));
       }
    }
 }
