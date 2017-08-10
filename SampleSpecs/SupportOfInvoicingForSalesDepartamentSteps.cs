@@ -22,5 +22,23 @@ namespace SampleSpecs
         {
             ScenarioContext.Current.Pending();
         }
-    }
+
+       [When(@"I open it for some customer")]
+       public void WhenIOpenItForSomeCustomer()
+       {
+          ScenarioContext.Current.Pending();
+       }
+
+       [Then(@"it will report an owner")]
+       public void ThenItWillReportAnOwner()
+       {
+          ScenarioContext.Current.Pending();
+       }
+
+       [Then(@"open state")]
+       public void ThenOpenState()
+       {
+          ScenarioContext.Current.Pending();
+       }
+   }
 }
