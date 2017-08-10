@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Linq;
 using Moq;
 using Sample.Domain;
 using Sample.Domain.Command;
@@ -24,11 +25,14 @@ namespace SampleTests.Domain
          var customerId = "123";
          var openCommand = new OpenInvoiceCommand(customerId);
 
-         IEvent @event = null;
-         using (this.invoiceRoot.Subscribe(x => @event = x))
+         InvoiceOpenEvent @event = null;
+         using (this.invoiceRoot
+            .Where(x => x is InvoiceOpenEvent)
+            .Select(x => x as InvoiceOpenEvent)
+            .Subscribe(x => @event = x))
          {
             this.invoiceRoot.ExecuteCommand(new Mock<IInvoice>().Object, openCommand);
-            Assert.Equal(customerId, (@event as InvoiceOpenEvent).CustomerId);
+            Assert.Equal(customerId, @event.CustomerId);
          }
       }
    }
