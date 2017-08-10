@@ -1,12 +1,17 @@
-﻿namespace Sample.Model
-{
-   internal class Invoice : IInvoice
-   {
-      public Invoice()
-      {
-         IsBlank = true;
-      }
+﻿using System.Collections.Generic;
+using Sample.Domain.Event;
 
-      public bool IsBlank { get; }
+namespace Sample.Model
+{
+   public class Invoice : IInvoice
+   {
+      public bool IsBlank => CustomerId == null;
+
+      public string CustomerId { get; private set; }
+
+      public void Apply(InvoiceOpenedEvent @event)
+      {
+         CustomerId = @event.CustomerId;
+      }
    }
 }

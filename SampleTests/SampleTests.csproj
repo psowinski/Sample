@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Domain\Command\OpenInvoiceCommandShould.cs" />
     <Compile Include="Domain\InvoiceRootShould.cs" />
+    <Compile Include="Model\InvoiceShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
