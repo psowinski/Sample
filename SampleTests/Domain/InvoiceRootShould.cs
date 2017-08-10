@@ -35,5 +35,12 @@ namespace SampleTests.Domain
             Assert.Equal(customerId, @event.CustomerId);
          }
       }
+
+      [Fact]
+      public void CreateZeroStateInvoiceAsClosed()
+      {
+         var invoice = this.invoiceRoot.CreateZeroState();
+         Assert.False(invoice.IsOpen);
+      }
    }
 }
