@@ -13,5 +13,13 @@ namespace SampleTests.Domain.Command
          Assert.Throws<ArgumentException>(() => new OpenInvoiceCommand(""));
          Assert.Throws<ArgumentException>(() => new OpenInvoiceCommand("   "));
       }
+
+      [Fact]
+      public void TrackPassedCustomerId()
+      {
+         var customerId = "123";
+         var customer = new OpenInvoiceCommand(customerId);
+         Assert.Equal(customerId, customer.CustomerId);
+      }
    }
 }
