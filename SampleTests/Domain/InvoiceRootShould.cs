@@ -65,6 +65,20 @@ namespace SampleTests.Domain
       [Fact]
       public void AllowToAddItemToOpenInvoice()
       {
+         var item = new InvoiceItem("1", 1m, 1u);
+         var addItemCommand = new AddInvoiceItemCommand(item);
+
+         InvoiceItemAddedEvent invoiceEvent = null;
+         using (this.invoiceRoot
+            .Where(x => x is InvoiceItemAddedEvent)
+            .Select(x => x as InvoiceItemAddedEvent)
+            .Subscribe(x => invoiceEvent = x))
+         {
+            this.invoice.SetupGet(x => x.IsOpen).Returns(true);
+
+            this.invoiceRoot.ExecuteCommand(this.invoice.Object, addItemCommand);
+            Assert.Equal(item, invoiceEvent.Item);
+         }
       }
    }
 }

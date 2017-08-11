@@ -12,6 +12,11 @@ namespace Sample.Domain
          return new Invoice();
       }
 
+      public override void ApplyEvent(IInvoice state, IInvoiceEvent @event)
+      {
+         @event.Visit(state);
+      }
+
       public void ExecuteCommand(IInvoice invoice, OpenInvoiceCommand command)
       {
          if(!invoice.IsBlank) throw new InvalidOperationException("Only blank invoice can be opened.");

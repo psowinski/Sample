@@ -13,7 +13,7 @@ namespace Sample.Domain.Event
 
       public void Visit(IInvoice invoice)
       {
-         invoice.Apply(this);
+         invoice.Handle(this);
       }
    }
 }

@@ -35,7 +35,7 @@ namespace SampleSpecs
       [When(@"I open it for some customer")]
       public void WhenIOpenItForSomeCustomer()
       {
-         using (this.invoiceRoot.Subscribe(this.invoice.Apply))
+         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.ApplyEvent(this.invoice, e)))
             this.invoiceRoot.ExecuteCommand(this.invoice, new OpenInvoiceCommand(this.customerId));
       }
 
