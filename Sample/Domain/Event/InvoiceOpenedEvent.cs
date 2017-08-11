@@ -1,6 +1,6 @@
 ﻿namespace Sample.Domain.Event
 {
-   public class InvoiceOpenedEvent : IEvent
+   public class InvoiceOpenedEvent : IInvoiceEvent
    {
       public string CustomerId { get; }
 

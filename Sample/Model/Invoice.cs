@@ -11,9 +11,9 @@ namespace Sample.Model
 
       public string CustomerId { get; private set; }
 
-      public void Apply(InvoiceOpenedEvent @event)
+      public void Apply(InvoiceOpenedEvent invoiceEvent)
       {
-         CustomerId = @event.CustomerId;
+         CustomerId = invoiceEvent.CustomerId;
          IsOpen = true;
       }
    }

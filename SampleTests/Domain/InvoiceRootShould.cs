@@ -26,16 +26,16 @@ namespace SampleTests.Domain
          var customerId = "123";
          var openCommand = new OpenInvoiceCommand(customerId);
 
-         InvoiceOpenedEvent @event = null;
+         InvoiceOpenedEvent invoiceEvent = null;
          using (this.invoiceRoot
             .Where(x => x is InvoiceOpenedEvent)
             .Select(x => x as InvoiceOpenedEvent)
-            .Subscribe(x => @event = x))
+            .Subscribe(x => invoiceEvent = x))
          {
             this.invoice.SetupGet(x => x.IsBlank).Returns(true);
 
             this.invoiceRoot.ExecuteCommand(this.invoice.Object, openCommand);
-            Assert.Equal(customerId, @event.CustomerId);
+            Assert.Equal(customerId, invoiceEvent.CustomerId);
          }
       }
 

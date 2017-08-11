@@ -72,7 +72,7 @@
   <ItemGroup>
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\Command\OpenInvoiceCommand.cs" />
-    <Compile Include="Domain\Event\IEvent.cs" />
+    <Compile Include="Domain\Event\IInvoiceEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
     <Compile Include="Model\IInvoice.cs" />
     <Compile Include="Model\Invoice.cs" />

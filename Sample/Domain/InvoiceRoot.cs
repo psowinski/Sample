@@ -5,7 +5,7 @@ using Sample.Model;
 
 namespace Sample.Domain
 {
-   public class InvoiceRoot : AggregateRoot<IInvoice, IEvent>
+   public class InvoiceRoot : AggregateRoot<IInvoice, IInvoiceEvent>
    {
       public override IInvoice CreateZeroState()
       {

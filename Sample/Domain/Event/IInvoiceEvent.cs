@@ -1,6 +1,6 @@
 ﻿namespace Sample.Domain.Event
 {
-   public interface IEvent
+   public interface IInvoiceEvent
    {
    }
 }
