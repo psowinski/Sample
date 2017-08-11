@@ -17,7 +17,7 @@ namespace SampleTests.Domain
       [Fact]
       public void AllowToCreateZeroStateInvoice()
       {
-         Assert.IsAssignableFrom<IInvoice>(this.invoiceRoot.CreateZeroState());
+         Assert.IsAssignableFrom<IInvoice>(this.invoiceRoot.Zero());
       }
 
       [Fact]
@@ -34,7 +34,7 @@ namespace SampleTests.Domain
          {
             this.invoice.SetupGet(x => x.IsBlank).Returns(true);
 
-            this.invoiceRoot.ExecuteCommand(this.invoice.Object, openCommand);
+            this.invoiceRoot.Execute(this.invoice.Object, openCommand);
             Assert.Equal(customerId, invoiceEvent.CustomerId);
          }
       }
@@ -42,7 +42,7 @@ namespace SampleTests.Domain
       [Fact]
       public void CreateZeroStateInvoice()
       {
-         var zeroState = this.invoiceRoot.CreateZeroState();
+         var zeroState = this.invoiceRoot.Zero();
          Assert.True(zeroState.IsBlank);
          Assert.False(zeroState.IsOpen);
       }
@@ -51,7 +51,7 @@ namespace SampleTests.Domain
       public void NotAllowToOpenAnInvoiceIfItIsNotBlank()
       {
          Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.ExecuteCommand(this.invoice.Object, new OpenInvoiceCommand("123")));
+            () => this.invoiceRoot.Execute(this.invoice.Object, new OpenInvoiceCommand("123")));
       }
 
       [Fact]
@@ -59,7 +59,7 @@ namespace SampleTests.Domain
       {
          var addItemCommand = new AddInvoiceItemCommand(new InvoiceItem("1", 2m, 2));
          Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.ExecuteCommand(this.invoice.Object, addItemCommand));
+            () => this.invoiceRoot.Execute(this.invoice.Object, addItemCommand));
       }
 
       [Fact]
@@ -76,9 +76,25 @@ namespace SampleTests.Domain
          {
             this.invoice.SetupGet(x => x.IsOpen).Returns(true);
 
-            this.invoiceRoot.ExecuteCommand(this.invoice.Object, addItemCommand);
+            this.invoiceRoot.Execute(this.invoice.Object, addItemCommand);
             Assert.Equal(item, invoiceEvent.Item);
          }
+      }
+
+      [Fact]
+      public void VisitEventDuringApply()
+      {
+         var @event = new Mock<IEvent<IInvoice>>();
+         this.invoiceRoot.Apply(this.invoice.Object, @event.Object);
+         @event.Verify(x => x.Visit(this.invoice.Object), Times.Once);
+      }
+
+      [Fact]
+      public void VisitCommandDuringExecution()
+      {
+         var command = new Mock<ICommand<IInvoice, IInvoiceRoot>>();
+         this.invoiceRoot.Execute(this.invoice.Object, command.Object);
+         command.Verify(x => x.Visit(this.invoiceRoot, this.invoice.Object), Times.Once);
       }
    }
 }

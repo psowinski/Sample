@@ -7,9 +7,9 @@ namespace Sample.Domain
 {
    public class InvoiceRoot : AggregateRoot<IInvoice, IInvoiceRoot>, IInvoiceRoot
    {
-      public override IInvoice CreateZeroState() => new Invoice();
+      public override IInvoice Zero() => new Invoice();
 
-      public override void ExecuteCommand(IInvoice state, ICommand<IInvoice, IInvoiceRoot> command) => command.Visit(this, state);
+      public override void Execute(IInvoice state, ICommand<IInvoice, IInvoiceRoot> command) => command.Visit(this, state);
 
       public void Handle(IInvoice invoice, OpenInvoiceCommand command)
       {

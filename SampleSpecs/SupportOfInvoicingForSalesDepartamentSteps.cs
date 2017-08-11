@@ -18,7 +18,7 @@ namespace SampleSpecs
       [Given(@"is an empty unopened invoice")]
       public void GivenIsAnEmptyUnopenedInvoice()
       {
-         this.invoice = this.invoiceRoot.CreateZeroState();
+         this.invoice = this.invoiceRoot.Zero();
       }
 
       [When(@"I try to add item to it")]
@@ -26,7 +26,7 @@ namespace SampleSpecs
       {
          try
          {
-            this.invoiceRoot.ExecuteCommand(this.invoice, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
+            this.invoiceRoot.Execute(this.invoice, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
          }
          catch (InvalidOperationException ex)
          {
@@ -43,8 +43,8 @@ namespace SampleSpecs
       [When(@"I open it for some customer")]
       public void WhenIOpenItForSomeCustomer()
       {
-         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.ApplyEvent(this.invoice, e)))
-            this.invoiceRoot.ExecuteCommand(this.invoice, new OpenInvoiceCommand(this.customerId));
+         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+            this.invoiceRoot.Execute(this.invoice, new OpenInvoiceCommand(this.customerId));
       }
 
       [Then(@"it will report an owner")]

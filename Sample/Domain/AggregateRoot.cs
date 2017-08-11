@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Reactive.Subjects;
 using Sample.Domain.Command;
 using Sample.Domain.Event;
@@ -8,11 +7,11 @@ namespace Sample.Domain
 {
    public abstract class AggregateRoot<TState, TCommandHandler> : IObservable<IEvent<TState>>
    {
-      public abstract TState CreateZeroState();
+      public abstract TState Zero();
 
-      public abstract void ExecuteCommand(TState state, ICommand<TState, TCommandHandler> command);
+      public abstract void Execute(TState state, ICommand<TState, TCommandHandler> command);
 
-      public void ApplyEvent(TState state, IEvent<TState> @event) => @event.Visit(state);
+      public void Apply(TState state, IEvent<TState> @event) => @event.Visit(state);
 
       private readonly Subject<IEvent<TState>> eventSubject = new Subject<IEvent<TState>>();
 
