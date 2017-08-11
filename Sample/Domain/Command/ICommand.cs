@@ -1,4 +1,4 @@
-﻿namespace Sample.Domain
+﻿namespace Sample.Domain.Command
 {
    public interface ICommand<TState, TVisitor>
    {

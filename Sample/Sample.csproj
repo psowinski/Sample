@@ -76,7 +76,7 @@
     <Compile Include="Domain\Event\IEvent.cs" />
     <Compile Include="Domain\Event\InvoiceItemAddedEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
-    <Compile Include="Domain\ICommand.cs" />
+    <Compile Include="Domain\Command\ICommand.cs" />
     <Compile Include="Domain\ICommandHandler.cs" />
     <Compile Include="Domain\IInvoiceRoot.cs" />
     <Compile Include="Model\IEventHandler.cs" />

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Reactive.Subjects;
+using Sample.Domain.Command;
 using Sample.Domain.Event;
 
 namespace Sample.Domain
