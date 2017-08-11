@@ -5,16 +5,11 @@ using Sample.Model;
 
 namespace Sample.Domain
 {
-   public class InvoiceRoot : AggregateRoot<IInvoice, IInvoiceEvent>
+   public class InvoiceRoot : AggregateRoot<IInvoice>
    {
       public override IInvoice CreateZeroState()
       {
          return new Invoice();
-      }
-
-      public override void ApplyEvent(IInvoice state, IInvoiceEvent @event)
-      {
-         @event.Visit(state);
       }
 
       public void ExecuteCommand(IInvoice invoice, OpenInvoiceCommand command)

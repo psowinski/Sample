@@ -2,7 +2,7 @@
 
 namespace Sample.Domain.Event
 {
-   public class InvoiceItemAddedEvent : IInvoiceEvent
+   public class InvoiceItemAddedEvent : IEvent<IInvoice>
    {
       public InvoiceItem Item { get; }
 
