@@ -13,6 +13,7 @@ namespace SampleSpecs
       private readonly InvoiceRoot invoiceRoot = new InvoiceRoot();
       private IInvoice invoice;
       private string customerId = "123";
+      private string errorMsg;
 
       [Given(@"is an empty unopened invoice")]
       public void GivenIsAnEmptyUnopenedInvoice()
@@ -23,13 +24,20 @@ namespace SampleSpecs
       [When(@"I try to add item to it")]
       public void WhenITryToAddItemToIt()
       {
-         ScenarioContext.Current.Pending();
+         try
+         {
+            this.invoiceRoot.ExecuteCommand(this.invoice, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
+         }
+         catch (InvalidOperationException ex)
+         {
+            this.errorMsg = ex.ToString();
+         }
       }
 
       [Then(@"I should get an error ""(.*)""")]
       public void ThenIShouldGetAnError(string error)
       {
-         ScenarioContext.Current.Pending();
+         Assert.Contains(error, this.errorMsg);
       }
 
       [When(@"I open it for some customer")]
