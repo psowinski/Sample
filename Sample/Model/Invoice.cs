@@ -11,9 +11,14 @@ namespace Sample.Model
 
       public string CustomerId { get; private set; }
 
-      public void Apply(InvoiceOpenedEvent invoiceEvent)
+      public void Apply(IInvoiceEvent @event)
       {
-         CustomerId = invoiceEvent.CustomerId;
+         @event.Visit(this);
+      }
+
+      public void Apply(InvoiceOpenedEvent @event)
+      {
+         CustomerId = @event.CustomerId;
          IsOpen = true;
       }
    }

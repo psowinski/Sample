@@ -1,7 +1,9 @@
-﻿using Sample.Domain;
+﻿using System;
+using Sample.Domain;
 using Sample.Domain.Command;
 using Sample.Model;
 using TechTalk.SpecFlow;
+using Xunit;
 
 namespace SampleSpecs
 {
@@ -10,6 +12,7 @@ namespace SampleSpecs
    {
       private readonly InvoiceRoot invoiceRoot = new InvoiceRoot();
       private IInvoice invoice;
+      private string customerId = "123";
 
       [Given(@"is an empty unopened invoice")]
       public void GivenIsAnEmptyUnopenedInvoice()
@@ -32,20 +35,20 @@ namespace SampleSpecs
       [When(@"I open it for some customer")]
       public void WhenIOpenItForSomeCustomer()
       {
-         //this.invoiceRoot.Subscribe(this.invoice.Apply);
-         this.invoiceRoot.ExecuteCommand(this.invoice, new OpenInvoiceCommand("123"));
+         using (this.invoiceRoot.Subscribe(this.invoice.Apply))
+            this.invoiceRoot.ExecuteCommand(this.invoice, new OpenInvoiceCommand(this.customerId));
       }
 
       [Then(@"it will report an owner")]
       public void ThenItWillReportAnOwner()
       {
-         ScenarioContext.Current.Pending();
+         Assert.Equal(this.customerId, this.invoice.CustomerId);
       }
 
       [Then(@"open state")]
       public void ThenOpenState()
       {
-         ScenarioContext.Current.Pending();
+         Assert.True(this.invoice.IsOpen);
       }
    }
 }
