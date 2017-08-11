@@ -74,10 +74,12 @@
     <Compile Include="Domain\Command\AddInvoiceItemCommand.cs" />
     <Compile Include="Domain\Command\OpenInvoiceCommand.cs" />
     <Compile Include="Domain\Event\IInvoiceEvent.cs" />
+    <Compile Include="Domain\Event\InvoiceItemAddedEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
     <Compile Include="Model\IInvoice.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Domain\InvoiceRoot.cs" />
+    <Compile Include="Model\InvoiceItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

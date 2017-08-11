@@ -55,21 +55,16 @@ namespace SampleTests.Domain
       }
 
       [Fact]
-      public void AllowToAddItem()
+      public void NotAllowToAddItemToUnopenInvoice()
       {
-         var addItemCommand = new AddInvoiceItemCommand("1", 2m, 2);
+         var addItemCommand = new AddInvoiceItemCommand(new InvoiceItem("1", 2m, 2));
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.ExecuteCommand(this.invoice.Object, addItemCommand));
+      }
 
-         //InvoiceOpenedEvent invoiceEvent = null;
-         //using (this.invoiceRoot
-         //   .Where(x => x is InvoiceOpenedEvent)
-         //   .Select(x => x as InvoiceOpenedEvent)
-         //   .Subscribe(x => invoiceEvent = x))
-         //{
-         //   this.invoice.SetupGet(x => x.IsBlank).Returns(true);
-
-         //   this.invoiceRoot.ExecuteCommand(this.invoice.Object, openCommand);
-         //   Assert.Equal(customerId, invoiceEvent.CustomerId);
-         //}
+      [Fact]
+      public void AllowToAddItemToOpenInvoice()
+      {
       }
    }
 }

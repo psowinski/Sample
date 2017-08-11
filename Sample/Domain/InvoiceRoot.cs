@@ -12,10 +12,16 @@ namespace Sample.Domain
          return new Invoice();
       }
 
-      public void ExecuteCommand(IInvoice invoice, OpenInvoiceCommand openCommand)
+      public void ExecuteCommand(IInvoice invoice, OpenInvoiceCommand command)
       {
          if(!invoice.IsBlank) throw new InvalidOperationException("Only blank invoice can be opened.");
-         Publish(new InvoiceOpenedEvent(openCommand.CustomerId));
+         Publish(new InvoiceOpenedEvent(command.CustomerId));
+      }
+
+      public void ExecuteCommand(IInvoice invoice, AddInvoiceItemCommand command)
+      {
+         if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");
+         Publish(new InvoiceItemAddedEvent(command.Item));
       }
    }
 }
