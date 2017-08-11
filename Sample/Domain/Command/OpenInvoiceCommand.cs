@@ -1,8 +1,9 @@
 ﻿using System;
+using Sample.Model;
 
 namespace Sample.Domain.Command
 {
-   public class OpenInvoiceCommand
+   public class OpenInvoiceCommand : ICommand<IInvoice, IInvoiceRoot>
    {
       public string CustomerId { get; }
 
@@ -12,5 +13,7 @@ namespace Sample.Domain.Command
             throw new ArgumentException(nameof(customerId));
          CustomerId = customerId;
       }
+
+      public void Visit(IInvoiceRoot visitor, IInvoice state) => visitor.Handle(state, this);
    }
 }

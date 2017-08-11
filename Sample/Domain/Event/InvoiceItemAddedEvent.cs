@@ -11,9 +11,6 @@ namespace Sample.Domain.Event
          Item = item;
       }
 
-      public void Visit(IInvoice invoice)
-      {
-         invoice.Handle(this);
-      }
+      public void Visit(IInvoice invoice) => invoice.Handle(this);
    }
 }

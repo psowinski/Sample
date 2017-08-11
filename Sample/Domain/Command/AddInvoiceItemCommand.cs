@@ -3,7 +3,7 @@ using Sample.Model;
 
 namespace Sample.Domain.Command
 {
-   public class AddInvoiceItemCommand
+   public class AddInvoiceItemCommand : ICommand<IInvoice, IInvoiceRoot>
    {
       public InvoiceItem Item { get; }
 
@@ -15,5 +15,7 @@ namespace Sample.Domain.Command
             throw new ArgumentException(nameof(item));
          Item = item;
       }
+
+      public void Visit(IInvoiceRoot visitor, IInvoice state) => visitor.Handle(state, this);
    }
 }
