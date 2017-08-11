@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\AggregateRoot.cs" />
+    <Compile Include="Domain\Command\AddInvoiceItemCommand.cs" />
     <Compile Include="Domain\Command\OpenInvoiceCommand.cs" />
     <Compile Include="Domain\Event\IInvoiceEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
