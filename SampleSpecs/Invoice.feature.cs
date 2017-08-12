@@ -89,7 +89,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
    testRunner.Then("it will report an owner", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 11
-   testRunner.And("open state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+      testRunner.And("open state", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -200,7 +200,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 39
    testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 40
-   testRunner.And("I set a sale date \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+      testRunner.And("I set a sale date \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 41
    testRunner.Then("an invoice should present the last one \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -245,9 +245,9 @@ this.ScenarioSetup(scenarioInfo);
                         "1.00",
                         "1"});
 #line 50
-   testRunner.And("it contians item", ((string)(null)), table4, "And ");
+      testRunner.And("it contians item", ((string)(null)), table4, "And ");
 #line 53
-   testRunner.And("it has set a date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+      testRunner.And("it has set a date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 54
    testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 55
@@ -294,11 +294,38 @@ this.ScenarioSetup(scenarioInfo);
                         "1.00",
                         "1"});
 #line 64
-   testRunner.And("it contians item", ((string)(null)), table5, "And ");
+      testRunner.And("it contians item", ((string)(null)), table5, "And ");
 #line 67
    testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 68
    testRunner.Then("I should get an error \"Cannot close invoice without sell date.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Add item to closed invoice")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Add item to closed invoice")]
+        public virtual void AddItemToClosedInvoice()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add item to closed invoice", ((string[])(null)));
+#line 70
+this.ScenarioSetup(scenarioInfo);
+#line 71
+   testRunner.Given("is a closed invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table6.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "3"});
+#line 72
+   testRunner.When("I add an item:", ((string)(null)), table6, "When ");
+#line 75
+   testRunner.Then("I should get an error \"Cannot modify closed invoice.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -8,7 +8,7 @@ Scenario: Opening invoice
    Given is an empty unopened invoice
    When I open it for some customer
    Then it will report an owner
-   And open state
+      And open state
 
 Scenario: Unopened invoice modification
    Given is an empty unopened invoice
@@ -37,7 +37,7 @@ Scenario: Sum amount of the same items
 Scenario: Set invoice sale date
    Given is an open invoice
    When I set a sale date '2017-07-07'
-   And I set a sale date '2017-08-08'
+      And I set a sale date '2017-08-08'
    Then an invoice should present the last one '2017-08-08'
 
 Scenario: Cannot set a sale date on unopen invoice
@@ -47,10 +47,10 @@ Scenario: Cannot set a sale date on unopen invoice
 
 Scenario: Close valid invoice
    Given is an open invoice
-   And it contians item
+      And it contians item
       | ProductId | Price | Amount |
       | 1         | 1.00  | 1      |
-   And it has set a date '2017-07-07'
+      And it has set a date '2017-07-07'
    When I close it
    Then it should report as closed not blank
 
@@ -61,8 +61,15 @@ Scenario: Close an empty invoice
 
 Scenario: Close an invoice without sell date
    Given is an open invoice
-   And it contians item
+      And it contians item
       | ProductId | Price | Amount |
       | 1         | 1.00  | 1      |
    When I close it
    Then I should get an error "Cannot close invoice without sell date."
+
+Scenario: Add item to closed invoice
+   Given is a closed invoice
+   When I add an item:
+      | ProductId | Price | Amount |
+      | 1         | 5.00  | 3      |
+   Then I should get an error "Cannot modify closed invoice."

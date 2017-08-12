@@ -40,7 +40,11 @@ namespace Sample.Domain
 
       private static void RequireOpenInvoice(IInvoice invoice)
       {
-         if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");
+         if (!invoice.IsOpen)
+            throw new InvalidOperationException(
+               invoice.IsBlank
+               ? "You need to open invoice befor modification."
+               : "Cannot modify closed invoice.");
       }
    }
 }

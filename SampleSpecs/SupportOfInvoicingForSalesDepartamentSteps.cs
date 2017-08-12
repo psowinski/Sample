@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Moq;
 using Sample.Domain;
 using Sample.Domain.Command;
 using Sample.Model;
@@ -70,17 +71,25 @@ namespace SampleSpecs
          WhenIOpenItForSomeCustomer();
       }
 
+      [When(@"I add an item:")]
       [When(@"I add a few items:")]
       [When(@"I add twice the same item:")]
       [Given(@"it contians item")]
       public void AddItems(Table table)
       {
-         var items = table.CreateSet<InvoiceItemRow>();
-         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+         try
          {
-            foreach (var item in items)
-               this.invoiceRoot.Execute(this.invoice,
-                  new AddInvoiceItemCommand(item.ToInvoiceItem()));
+            var items = table.CreateSet<InvoiceItemRow>();
+            using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+            {
+               foreach (var item in items)
+                  this.invoiceRoot.Execute(this.invoice,
+                     new AddInvoiceItemCommand(item.ToInvoiceItem()));
+            }
+         }
+         catch (Exception ex)
+         {
+            this.errorMsg = ex.ToString();
          }
       }
 
@@ -137,6 +146,12 @@ namespace SampleSpecs
       {
          Assert.False(this.invoice.IsOpen);
          Assert.False(this.invoice.IsBlank);
+      }
+
+      [Given(@"is a closed invoice")]
+      public void GivenIsAClosedInvoice()
+      {
+         this.invoice = new Mock<IInvoice>().Object;
       }
    }
 }
