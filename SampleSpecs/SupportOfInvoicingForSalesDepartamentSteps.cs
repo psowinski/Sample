@@ -71,7 +71,8 @@ namespace SampleSpecs
 
       [When(@"I add a few items:")]
       [When(@"I add twice the same item:")]
-      public void WhenIAddAFewItems(Table table)
+      [Given(@"it contians item")]
+      public void AddItems(Table table)
       {
          var items = table.CreateSet<InvoiceItemRow>();
          using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
@@ -96,6 +97,7 @@ namespace SampleSpecs
       }
 
       [When(@"I set a sale date '(.*)'")]
+      [Given(@"it has set a date '(.*)'")]
       public void WhenISetASaleDate(DateTime date)
       {
          try
@@ -113,6 +115,27 @@ namespace SampleSpecs
       public void ThenAnInvoiceShouldPresentTheLastOne(DateTime date)
       {
          Assert.Equal(date, this.invoice.Date);
+      }
+
+      [When(@"I close it")]
+      public void WhenICloseIt()
+      {
+         try
+         {
+            using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+               this.invoiceRoot.Execute(this.invoice, new CloseInvoiceCommand());
+         }
+         catch (InvalidOperationException ex)
+         {
+            this.errorMsg = ex.ToString();
+         }
+      }
+
+      [Then(@"it should report as closed not blank")]
+      public void ThenItShouldReportAsClosed()
+      {
+         Assert.False(this.invoice.IsOpen);
+         Assert.False(this.invoice.IsBlank);
       }
    }
 }

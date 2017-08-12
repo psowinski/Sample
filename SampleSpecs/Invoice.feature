@@ -44,3 +44,12 @@ Scenario: Cannot set a sale date on unopen invoice
    Given is an empty unopened invoice
    When I set a sale date '2017-07-07'
    Then I should get an error "You need to open invoice befor modification."
+
+Scenario: Close valid invoice
+   Given is an open invoice
+   And it contians item
+      | ProductId | Price | Amount |
+      | 1         | 1.00  | 1      |
+   And it has set a date '2017-07-07'
+   When I close it
+   Then it should report as closed not blank

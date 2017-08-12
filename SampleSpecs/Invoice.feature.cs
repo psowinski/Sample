@@ -225,6 +225,37 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="Close valid invoice")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Close valid invoice")]
+        public virtual void CloseValidInvoice()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Close valid invoice", ((string[])(null)));
+#line 48
+this.ScenarioSetup(scenarioInfo);
+#line 49
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table4.AddRow(new string[] {
+                        "1",
+                        "1.00",
+                        "1"});
+#line 50
+   testRunner.And("it contians item", ((string)(null)), table4, "And ");
+#line 53
+   testRunner.And("it has set a date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 54
+   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 55
+   testRunner.Then("it should report as closed not blank", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
