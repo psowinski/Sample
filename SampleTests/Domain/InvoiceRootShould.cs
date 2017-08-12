@@ -96,5 +96,22 @@ namespace SampleTests.Domain
          this.invoiceRoot.Execute(this.invoice.Object, command.Object);
          command.Verify(x => x.Visit(this.invoiceRoot, this.invoice.Object), Times.Once);
       }
+
+      [Fact]
+      public void AllowToSetInvoiceSellDate()
+      {
+         var date = DateTime.Now;
+         var command = new SetInvoiceSellDateCommand(date);
+
+         InvoiceSellDateSetEvent invoiceEvent = null;
+         using (this.invoiceRoot
+            .Where(x => x is InvoiceSellDateSetEvent)
+            .Select(x => x as InvoiceSellDateSetEvent)
+            .Subscribe(x => invoiceEvent = x))
+         {
+            this.invoiceRoot.Execute(this.invoice.Object, command);
+            Assert.Equal(date, invoiceEvent.Date);
+         }
+      }
    }
 }

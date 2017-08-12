@@ -4,7 +4,8 @@ using Sample.Domain.Event;
 namespace Sample.Model
 {
    public interface IInvoice : IEventHandler<InvoiceOpenedEvent>,
-                               IEventHandler<InvoiceItemAddedEvent>
+                               IEventHandler<InvoiceItemAddedEvent>,
+                               IEventHandler<InvoiceSellDateSetEvent>
    {
       bool IsBlank { get; }
       bool IsOpen { get; }

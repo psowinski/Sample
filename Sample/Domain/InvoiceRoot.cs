@@ -22,5 +22,10 @@ namespace Sample.Domain
          if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");
          Publish(new InvoiceItemAddedEvent(command.Item));
       }
+
+      public void Handle(IInvoice state, SetInvoiceSellDateCommand command)
+      {
+         Publish(new InvoiceSellDateSetEvent(command.Date));
+      }
    }
 }

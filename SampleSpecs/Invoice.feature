@@ -33,3 +33,10 @@ Scenario: Sum amount of the same items
    Then it should contian item:
       | ProductId | Price | Amount |
       | 1         | 5.00  | 7      |
+
+Scenario: Set invoice sale date
+   Given is an open invoice
+   When I set a sale date '2017-07-07'
+   And I set a sale date '2017-08-08'
+   Then an invoice should present the last one '2017-08-08'
+

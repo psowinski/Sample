@@ -40,5 +40,12 @@ namespace Sample.Model
          else
             this.items.Add(@event.Item);
       }
+
+      public DateTime Date { get; private set; }
+
+      public void Handle(InvoiceSellDateSetEvent @event)
+      {
+         Date = @event.Date;
+      }
    }
 }

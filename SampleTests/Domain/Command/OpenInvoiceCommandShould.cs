@@ -18,8 +18,8 @@ namespace SampleTests.Domain.Command
       public void TrackPassedCustomerId()
       {
          var customerId = "123";
-         var customer = new OpenInvoiceCommand(customerId);
-         Assert.Equal(customerId, customer.CustomerId);
+         var command = new OpenInvoiceCommand(customerId);
+         Assert.Equal(customerId, command.CustomerId);
       }
    }
 }
