@@ -29,6 +29,7 @@ Scenario: Sum amount of the same items
    When I add twice the same item:
       | ProductId | Price | Amount |
       | 1         | 5.00  | 3      |
+      | 1         | 5.00  | 4      |
    Then it should contian item:
       | ProductId | Price | Amount |
-      | 1         | 5.00  | 3      |
+      | 1         | 5.00  | 7      |

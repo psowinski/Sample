@@ -166,6 +166,10 @@ this.ScenarioSetup(scenarioInfo);
                         "1",
                         "5.00",
                         "3"});
+            table2.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "4"});
 #line 29
    testRunner.When("I add twice the same item:", ((string)(null)), table2, "When ");
 #line hidden
@@ -176,8 +180,8 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "1",
                         "5.00",
-                        "3"});
-#line 32
+                        "7"});
+#line 33
    testRunner.Then("it should contian item:", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();

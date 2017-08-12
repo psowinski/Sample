@@ -28,7 +28,17 @@ namespace Sample.Model
 
       public void Handle(InvoiceItemAddedEvent @event)
       {
-         this.items.Add(@event.Item);
+         var existing = this.items.FirstOrDefault(x => x.ProductId == @event.Item.ProductId);
+         if (existing != null)
+         {
+            this.items.Remove(existing);
+            this.items.Add(new InvoiceItem(
+               existing.ProductId,
+               existing.Price,
+               existing.Amount + @event.Item.Amount));
+         }
+         else
+            this.items.Add(@event.Item);
       }
    }
 }
