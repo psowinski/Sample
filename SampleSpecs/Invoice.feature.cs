@@ -207,6 +207,24 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="Cannot set a sale date on unopen invoice")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Cannot set a sale date on unopen invoice")]
+        public virtual void CannotSetASaleDateOnUnopenInvoice()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cannot set a sale date on unopen invoice", ((string[])(null)));
+#line 43
+this.ScenarioSetup(scenarioInfo);
+#line 44
+   testRunner.Given("is an empty unopened invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 45
+   testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 46
+   testRunner.Then("I should get an error \"You need to open invoice befor modification.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

@@ -98,8 +98,15 @@ namespace SampleSpecs
       [When(@"I set a sale date '(.*)'")]
       public void WhenISetASaleDate(DateTime date)
       {
-         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
-            this.invoiceRoot.Execute(this.invoice, new SetInvoiceSellDateCommand(date));
+         try
+         {
+            using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+               this.invoiceRoot.Execute(this.invoice, new SetInvoiceSellDateCommand(date));
+         }
+         catch (InvalidOperationException ex)
+         {
+            this.errorMsg = ex.ToString();
+         }
       }
 
       [Then(@"an invoice should present the last one '(.*)'")]

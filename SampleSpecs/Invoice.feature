@@ -40,3 +40,7 @@ Scenario: Set invoice sale date
    And I set a sale date '2017-08-08'
    Then an invoice should present the last one '2017-08-08'
 
+Scenario: Cannot set a sale date on unopen invoice
+   Given is an empty unopened invoice
+   When I set a sale date '2017-07-07'
+   Then I should get an error "You need to open invoice befor modification."

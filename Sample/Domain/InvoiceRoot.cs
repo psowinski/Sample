@@ -17,15 +17,21 @@ namespace Sample.Domain
          Publish(new InvoiceOpenedEvent(command.CustomerId));
       }
 
-      public void Handle(IInvoice invoice, AddInvoiceItemCommand command)
+      public void Handle(IInvoice state, AddInvoiceItemCommand command)
       {
-         if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");
+         RequireOpenInvoice(state);
          Publish(new InvoiceItemAddedEvent(command.Item));
       }
 
       public void Handle(IInvoice state, SetInvoiceSellDateCommand command)
       {
+         RequireOpenInvoice(state);
          Publish(new InvoiceSellDateSetEvent(command.Date));
+      }
+
+      private static void RequireOpenInvoice(IInvoice invoice)
+      {
+         if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");
       }
    }
 }

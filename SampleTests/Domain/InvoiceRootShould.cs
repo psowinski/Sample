@@ -109,6 +109,8 @@ namespace SampleTests.Domain
             .Select(x => x as InvoiceSellDateSetEvent)
             .Subscribe(x => invoiceEvent = x))
          {
+            this.invoice.SetupGet(x => x.IsOpen).Returns(true);
+
             this.invoiceRoot.Execute(this.invoice.Object, command);
             Assert.Equal(date, invoiceEvent.Date);
          }
