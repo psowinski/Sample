@@ -26,5 +26,13 @@ namespace SampleTests.Model
          this.invoice.Handle(new InvoiceItemAddedEvent(item));
          Assert.NotNull(this.invoice.Items.Any(x => x == item));
       }
+
+      [Fact]
+      public void CalculateTotalSum()
+      {
+         this.invoice.Handle(new InvoiceItemAddedEvent(new InvoiceItem("1", 1m, 3u)));
+         this.invoice.Handle(new InvoiceItemAddedEvent(new InvoiceItem("2", 2.20m, 1u)));
+         Assert.Equal(5.20m, this.invoice.TotalSum);
+      }
    }
 }

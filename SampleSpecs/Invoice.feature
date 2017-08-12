@@ -14,3 +14,13 @@ Scenario: Unopened invoice modification
    Given is an empty unopened invoice
    When I try to add item to it
    Then I should get an error "You need to open invoice befor modification."
+
+Scenario: Calculate total sum
+   Given is an open invoice
+   When I add few items:
+      | ProductId | Price | Amount |
+      | 1         | 5.00  | 3      |
+      | 2         | 3.50  | 1      |
+      | 3         | 1.50  | 2      |
+   Then total sum should be equal to 21.50
+

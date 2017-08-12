@@ -3,6 +3,7 @@ using Sample.Domain;
 using Sample.Domain.Command;
 using Sample.Model;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 using Xunit;
 
 namespace SampleSpecs
@@ -26,7 +27,8 @@ namespace SampleSpecs
       {
          try
          {
-            this.invoiceRoot.Execute(this.invoice, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
+            this.invoiceRoot.Execute(this.invoice, 
+               new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
          }
          catch (InvalidOperationException ex)
          {
@@ -58,5 +60,32 @@ namespace SampleSpecs
       {
          Assert.True(this.invoice.IsOpen);
       }
+
+      [Given(@"is an open invoice")]
+      public void GivenIsAnOpenInvoice()
+      {
+         GivenIsAnEmptyUnopenedInvoice();
+         WhenIOpenItForSomeCustomer();
+      }
+
+      [When(@"I add few items:")]
+      public void WhenIAddFewItemsWith(Table table)
+      {
+         var items = table.CreateSet<InvoiceItemRow>();
+         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+         {
+            foreach (var item in items)
+               this.invoiceRoot.Execute(this.invoice, 
+                  new AddInvoiceItemCommand(
+                     new InvoiceItem(item.ProductId, item.Price, item.Amount)));
+         }
+      }
+
+      [Then(@"total sum should be equal to (.*)")]
+      public void ThenTotalSumShouldBeEqualTo(decimal totalSum)
+      {
+         Assert.Equal(totalSum, this.invoice.TotalSum);
+      }
+
    }
 }

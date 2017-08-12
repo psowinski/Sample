@@ -10,5 +10,6 @@ namespace Sample.Model
       bool IsOpen { get; }
       string CustomerId { get; }
       ReadOnlyCollection<InvoiceItem> Items { get; }
+      decimal TotalSum { get; }
    }
 }

@@ -112,6 +112,41 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="Calculate total sum")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Calculate total sum")]
+        public virtual void CalculateTotalSum()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Calculate total sum", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 19
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "3"});
+            table1.AddRow(new string[] {
+                        "2",
+                        "3.50",
+                        "1"});
+            table1.AddRow(new string[] {
+                        "3",
+                        "1.50",
+                        "2"});
+#line 20
+   testRunner.When("I add few items:", ((string)(null)), table1, "When ");
+#line 25
+   testRunner.Then("total sum should be equal to 21.50", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
