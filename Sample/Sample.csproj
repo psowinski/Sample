@@ -72,9 +72,11 @@
   <ItemGroup>
     <Compile Include="Domain\AggregateRoot.cs" />
     <Compile Include="Domain\Command\AddInvoiceItemCommand.cs" />
+    <Compile Include="Domain\Command\CloseInvoiceCommand.cs" />
     <Compile Include="Domain\Command\OpenInvoiceCommand.cs" />
     <Compile Include="Domain\Command\SetInvoiceSellDateCommand.cs" />
     <Compile Include="Domain\Event\IEvent.cs" />
+    <Compile Include="Domain\Event\InvoiceClosedEvent.cs" />
     <Compile Include="Domain\Event\InvoiceItemAddedEvent.cs" />
     <Compile Include="Domain\Event\InvoiceOpenedEvent.cs" />
     <Compile Include="Domain\Command\ICommand.cs" />

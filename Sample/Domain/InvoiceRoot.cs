@@ -29,6 +29,11 @@ namespace Sample.Domain
          Publish(new InvoiceSellDateSetEvent(command.Date));
       }
 
+      public void Handle(IInvoice state, CloseInvoiceCommand command)
+      {
+         Publish(new InvoiceClosedEvent());
+      }
+
       private static void RequireOpenInvoice(IInvoice invoice)
       {
          if (!invoice.IsOpen) throw new InvalidOperationException("You need to open invoice befor modification.");

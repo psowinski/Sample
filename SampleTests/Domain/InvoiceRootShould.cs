@@ -115,5 +115,19 @@ namespace SampleTests.Domain
             Assert.Equal(date, invoiceEvent.Date);
          }
       }
+
+      [Fact]
+      public void AllowToCloseInvoice()
+      {
+         InvoiceClosedEvent invoiceEvent = null;
+         using (this.invoiceRoot
+            .Where(x => x is InvoiceClosedEvent)
+            .Select(x => x as InvoiceClosedEvent)
+            .Subscribe(x => invoiceEvent = x))
+         {
+            this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand());
+            Assert.NotNull(invoiceEvent);
+         }
+      }
    }
 }

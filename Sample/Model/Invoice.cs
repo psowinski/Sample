@@ -47,5 +47,10 @@ namespace Sample.Model
       {
          Date = @event.Date;
       }
+
+      public void Handle(InvoiceClosedEvent @event)
+      {
+         IsOpen = false;
+      }
    }
 }

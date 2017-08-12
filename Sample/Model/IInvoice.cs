@@ -6,7 +6,8 @@ namespace Sample.Model
 {
    public interface IInvoice : IEventHandler<InvoiceOpenedEvent>,
                                IEventHandler<InvoiceItemAddedEvent>,
-                               IEventHandler<InvoiceSellDateSetEvent>
+                               IEventHandler<InvoiceSellDateSetEvent>,
+                               IEventHandler<InvoiceClosedEvent>
    {
       bool IsBlank { get; }
       bool IsOpen { get; }
