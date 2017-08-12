@@ -63,6 +63,7 @@ namespace SampleSpecs
       }
 
       [Given(@"is an open invoice")]
+      [Given(@"is an open invoice without items")]
       public void GivenIsAnOpenInvoice()
       {
          GivenIsAnEmptyUnopenedInvoice();

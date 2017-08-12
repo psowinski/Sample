@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using Moq;
 using Sample.Domain;
@@ -117,7 +118,14 @@ namespace SampleTests.Domain
       }
 
       [Fact]
-      public void AllowToCloseInvoice()
+      public void NotAllowToCloseAnEmptyInvoice()
+      {
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
+      }
+
+      [Fact]
+      public void AllowToCloseAnInvoice()
       {
          InvoiceClosedEvent invoiceEvent = null;
          using (this.invoiceRoot
@@ -125,6 +133,9 @@ namespace SampleTests.Domain
             .Select(x => x as InvoiceClosedEvent)
             .Subscribe(x => invoiceEvent = x))
          {
+            this.invoice.SetupGet(x => x.Items).Returns(
+               new List<InvoiceItem> { new InvoiceItem("1", 1m, 1u) }.AsReadOnly());
+
             this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand());
             Assert.NotNull(invoiceEvent);
          }

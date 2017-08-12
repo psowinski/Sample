@@ -31,6 +31,8 @@ namespace Sample.Domain
 
       public void Handle(IInvoice state, CloseInvoiceCommand command)
       {
+         if(state.Items == null || state.Items.Count == 0)
+            throw new InvalidOperationException("Cannot close an empty invoice.");
          Publish(new InvoiceClosedEvent());
       }
 

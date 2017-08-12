@@ -53,3 +53,8 @@ Scenario: Close valid invoice
    And it has set a date '2017-07-07'
    When I close it
    Then it should report as closed not blank
+
+Scenario: Close an empty invoice
+   Given is an open invoice without items
+   When I close it
+   Then I should get an error "Cannot close an empty invoice."
