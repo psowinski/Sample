@@ -125,6 +125,15 @@ namespace SampleTests.Domain
       }
 
       [Fact]
+      public void NotAllowToCloseInvoiceWithoutSellDate()
+      {
+         this.invoice.SetupGet(x => x.Items).Returns(
+            new List<InvoiceItem> { new InvoiceItem("1", 1m, 1u) }.AsReadOnly());
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
+      }
+
+      [Fact]
       public void AllowToCloseAnInvoice()
       {
          InvoiceClosedEvent invoiceEvent = null;
@@ -135,6 +144,7 @@ namespace SampleTests.Domain
          {
             this.invoice.SetupGet(x => x.Items).Returns(
                new List<InvoiceItem> { new InvoiceItem("1", 1m, 1u) }.AsReadOnly());
+            this.invoice.SetupGet(x => x.Date).Returns(DateTime.Now);
 
             this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand());
             Assert.NotNull(invoiceEvent);

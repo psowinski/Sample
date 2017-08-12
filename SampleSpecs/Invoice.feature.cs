@@ -274,6 +274,35 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="Close an invoice without sell date")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Close an invoice without sell date")]
+        public virtual void CloseAnInvoiceWithoutSellDate()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Close an invoice without sell date", ((string[])(null)));
+#line 62
+this.ScenarioSetup(scenarioInfo);
+#line 63
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table5.AddRow(new string[] {
+                        "1",
+                        "1.00",
+                        "1"});
+#line 64
+   testRunner.And("it contians item", ((string)(null)), table5, "And ");
+#line 67
+   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 68
+   testRunner.Then("I should get an error \"Cannot close invoice without sell date.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

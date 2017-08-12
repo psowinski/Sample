@@ -33,6 +33,8 @@ namespace Sample.Domain
       {
          if(state.Items == null || state.Items.Count == 0)
             throw new InvalidOperationException("Cannot close an empty invoice.");
+         if (state.Date == default(DateTime))
+            throw new InvalidOperationException("Cannot close invoice without sell date.");
          Publish(new InvoiceClosedEvent());
       }
 

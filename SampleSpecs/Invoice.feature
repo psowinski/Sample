@@ -58,3 +58,11 @@ Scenario: Close an empty invoice
    Given is an open invoice without items
    When I close it
    Then I should get an error "Cannot close an empty invoice."
+
+Scenario: Close an invoice without sell date
+   Given is an open invoice
+   And it contians item
+      | ProductId | Price | Amount |
+      | 1         | 1.00  | 1      |
+   When I close it
+   Then I should get an error "Cannot close invoice without sell date."
