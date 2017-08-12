@@ -150,5 +150,14 @@ namespace SampleTests.Domain
             Assert.NotNull(invoiceEvent);
          }
       }
+
+      [Fact]
+      public void NotAllowToModifyClosedInvoice()
+      {
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.Execute(this.invoice.Object, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u))));
+         Assert.Throws<InvalidOperationException>(
+            () => this.invoiceRoot.Execute(this.invoice.Object, new SetInvoiceSellDateCommand(DateTime.Now)));
+      }
    }
 }

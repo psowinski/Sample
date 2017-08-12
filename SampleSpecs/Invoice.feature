@@ -73,3 +73,8 @@ Scenario: Add item to closed invoice
       | ProductId | Price | Amount |
       | 1         | 5.00  | 3      |
    Then I should get an error "Cannot modify closed invoice."
+
+Scenario: Set sell date on closed invoice
+   Given is a closed invoice
+   When I set a sale date '2017-07-01'
+   Then I should get an error "Cannot modify closed invoice."

@@ -330,6 +330,24 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute(DisplayName="Set sell date on closed invoice")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Set sell date on closed invoice")]
+        public virtual void SetSellDateOnClosedInvoice()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set sell date on closed invoice", ((string[])(null)));
+#line 77
+this.ScenarioSetup(scenarioInfo);
+#line 78
+   testRunner.Given("is a closed invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 79
+   testRunner.When("I set a sale date \'2017-07-01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 80
+   testRunner.Then("I should get an error \"Cannot modify closed invoice.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
