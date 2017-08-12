@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using Sample.Domain.Event;
 
 namespace Sample.Model
@@ -12,5 +13,6 @@ namespace Sample.Model
       string CustomerId { get; }
       ReadOnlyCollection<InvoiceItem> Items { get; }
       decimal TotalSum { get; }
+      DateTime Date { get; }
    }
 }

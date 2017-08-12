@@ -94,5 +94,18 @@ namespace SampleSpecs
          var item = table.CreateInstance<InvoiceItemRow>();
          Assert.True(this.invoice.Items.All(x => x == item.ToInvoiceItem()));
       }
+
+      [When(@"I set a sale date '(.*)'")]
+      public void WhenISetASaleDate(DateTime date)
+      {
+         using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
+            this.invoiceRoot.Execute(this.invoice, new SetInvoiceSellDateCommand(date));
+      }
+
+      [Then(@"an invoice should present the last one '(.*)'")]
+      public void ThenAnInvoiceShouldPresentTheLastOne(DateTime date)
+      {
+         Assert.Equal(date, this.invoice.Date);
+      }
    }
 }
