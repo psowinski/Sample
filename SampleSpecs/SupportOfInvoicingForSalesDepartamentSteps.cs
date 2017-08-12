@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sample.Domain;
 using Sample.Domain.Command;
 using Sample.Model;
@@ -68,16 +69,16 @@ namespace SampleSpecs
          WhenIOpenItForSomeCustomer();
       }
 
-      [When(@"I add few items:")]
-      public void WhenIAddFewItemsWith(Table table)
+      [When(@"I add a few items:")]
+      [When(@"I add twice the same item:")]
+      public void WhenIAddAFewItems(Table table)
       {
          var items = table.CreateSet<InvoiceItemRow>();
          using (this.invoiceRoot.Subscribe(e => this.invoiceRoot.Apply(this.invoice, e)))
          {
             foreach (var item in items)
-               this.invoiceRoot.Execute(this.invoice, 
-                  new AddInvoiceItemCommand(
-                     new InvoiceItem(item.ProductId, item.Price, item.Amount)));
+               this.invoiceRoot.Execute(this.invoice,
+                  new AddInvoiceItemCommand(item.ToInvoiceItem()));
          }
       }
 
@@ -87,5 +88,11 @@ namespace SampleSpecs
          Assert.Equal(totalSum, this.invoice.TotalSum);
       }
 
+      [Then(@"it should contian item:")]
+      public void ThenItShouldContianItem(Table table)
+      {
+         var item = table.CreateInstance<InvoiceItemRow>();
+         Assert.True(this.invoice.Items.All(x => x == item.ToInvoiceItem()));
+      }
    }
 }

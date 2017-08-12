@@ -140,9 +140,45 @@ this.ScenarioSetup(scenarioInfo);
                         "1.50",
                         "2"});
 #line 20
-   testRunner.When("I add few items:", ((string)(null)), table1, "When ");
+   testRunner.When("I add a few items:", ((string)(null)), table1, "When ");
 #line 25
    testRunner.Then("total sum should be equal to 21.50", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Sum amount of the same items")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Sum amount of the same items")]
+        public virtual void SumAmountOfTheSameItems()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sum amount of the same items", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table2.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "3"});
+#line 29
+   testRunner.When("I add twice the same item:", ((string)(null)), table2, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "3"});
+#line 32
+   testRunner.Then("it should contian item:", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

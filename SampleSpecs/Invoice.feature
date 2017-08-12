@@ -17,10 +17,18 @@ Scenario: Unopened invoice modification
 
 Scenario: Calculate total sum
    Given is an open invoice
-   When I add few items:
+   When I add a few items:
       | ProductId | Price | Amount |
       | 1         | 5.00  | 3      |
       | 2         | 3.50  | 1      |
       | 3         | 1.50  | 2      |
    Then total sum should be equal to 21.50
 
+Scenario: Sum amount of the same items
+   Given is an open invoice
+   When I add twice the same item:
+      | ProductId | Price | Amount |
+      | 1         | 5.00  | 3      |
+   Then it should contian item:
+      | ProductId | Price | Amount |
+      | 1         | 5.00  | 3      |
