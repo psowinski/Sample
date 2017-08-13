@@ -24,20 +24,6 @@ namespace SampleSpecs
          this.invoice = this.invoiceRoot.Zero();
       }
 
-      [When(@"I try to add item to it")]
-      public void WhenITryToAddItemToIt()
-      {
-         try
-         {
-            this.invoiceRoot.Execute(this.invoice, 
-               new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u)));
-         }
-         catch (InvalidOperationException ex)
-         {
-            this.errorMsg = ex.ToString();
-         }
-      }
-
       [Then(@"I should get an error ""(.*)""")]
       public void ThenIShouldGetAnError(string error)
       {

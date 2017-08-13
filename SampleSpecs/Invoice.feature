@@ -12,7 +12,9 @@ Scenario: Opening invoice
 
 Scenario: Unopened invoice modification
    Given is an empty unopened invoice
-   When I try to add item to it
+   When I add an item:
+      | ProductId | Price | Amount |
+      | 1         | 1.00  | 1      |
    Then I should get an error "You need to open invoice befor modification."
 
 Scenario: Calculate total sum

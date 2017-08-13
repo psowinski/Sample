@@ -104,9 +104,18 @@ this.ScenarioSetup(scenarioInfo);
 this.ScenarioSetup(scenarioInfo);
 #line 14
    testRunner.Given("is an empty unopened invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table1.AddRow(new string[] {
+                        "1",
+                        "1.00",
+                        "1"});
 #line 15
-   testRunner.When("I try to add item to it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+   testRunner.When("I add an item:", ((string)(null)), table1, "When ");
+#line 18
    testRunner.Then("I should get an error \"You need to open invoice befor modification.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -118,44 +127,9 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CalculateTotalSum()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Calculate total sum", ((string[])(null)));
-#line 18
-this.ScenarioSetup(scenarioInfo);
-#line 19
-   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "ProductId",
-                        "Price",
-                        "Amount"});
-            table1.AddRow(new string[] {
-                        "1",
-                        "5.00",
-                        "3"});
-            table1.AddRow(new string[] {
-                        "2",
-                        "3.50",
-                        "1"});
-            table1.AddRow(new string[] {
-                        "3",
-                        "1.50",
-                        "2"});
 #line 20
-   testRunner.When("I add a few items:", ((string)(null)), table1, "When ");
-#line 25
-   testRunner.Then("total sum should be equal to 21.50", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [Xunit.FactAttribute(DisplayName="Sum amount of the same items")]
-        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
-        [Xunit.TraitAttribute("Description", "Sum amount of the same items")]
-        public virtual void SumAmountOfTheSameItems()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sum amount of the same items", ((string[])(null)));
-#line 27
 this.ScenarioSetup(scenarioInfo);
-#line 28
+#line 21
    testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -167,11 +141,31 @@ this.ScenarioSetup(scenarioInfo);
                         "5.00",
                         "3"});
             table2.AddRow(new string[] {
-                        "1",
-                        "5.00",
-                        "4"});
+                        "2",
+                        "3.50",
+                        "1"});
+            table2.AddRow(new string[] {
+                        "3",
+                        "1.50",
+                        "2"});
+#line 22
+   testRunner.When("I add a few items:", ((string)(null)), table2, "When ");
+#line 27
+   testRunner.Then("total sum should be equal to 21.50", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.FactAttribute(DisplayName="Sum amount of the same items")]
+        [Xunit.TraitAttribute("FeatureTitle", "Support of invoicing for sales departament")]
+        [Xunit.TraitAttribute("Description", "Sum amount of the same items")]
+        public virtual void SumAmountOfTheSameItems()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Sum amount of the same items", ((string[])(null)));
 #line 29
-   testRunner.When("I add twice the same item:", ((string)(null)), table2, "When ");
+this.ScenarioSetup(scenarioInfo);
+#line 30
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "ProductId",
@@ -180,9 +174,24 @@ this.ScenarioSetup(scenarioInfo);
             table3.AddRow(new string[] {
                         "1",
                         "5.00",
+                        "3"});
+            table3.AddRow(new string[] {
+                        "1",
+                        "5.00",
+                        "4"});
+#line 31
+   testRunner.When("I add twice the same item:", ((string)(null)), table3, "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                        "ProductId",
+                        "Price",
+                        "Amount"});
+            table4.AddRow(new string[] {
+                        "1",
+                        "5.00",
                         "7"});
-#line 33
-   testRunner.Then("it should contian item:", ((string)(null)), table3, "Then ");
+#line 35
+   testRunner.Then("it should contian item:", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -193,15 +202,15 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SetInvoiceSaleDate()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set invoice sale date", ((string[])(null)));
-#line 37
-this.ScenarioSetup(scenarioInfo);
-#line 38
-   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 39
-   testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 40
-      testRunner.And("I set a sale date \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+   testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 41
+   testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 42
+      testRunner.And("I set a sale date \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 43
    testRunner.Then("an invoice should present the last one \'2017-08-08\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -213,13 +222,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CannotSetASaleDateOnUnopenInvoice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cannot set a sale date on unopen invoice", ((string[])(null)));
-#line 43
-this.ScenarioSetup(scenarioInfo);
-#line 44
-   testRunner.Given("is an empty unopened invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 45
-   testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 46
+   testRunner.Given("is an empty unopened invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 47
+   testRunner.When("I set a sale date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 48
    testRunner.Then("I should get an error \"You need to open invoice befor modification.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -231,26 +240,26 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CloseValidInvoice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Close valid invoice", ((string[])(null)));
-#line 48
+#line 50
 this.ScenarioSetup(scenarioInfo);
-#line 49
+#line 51
    testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "ProductId",
                         "Price",
                         "Amount"});
-            table4.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "1",
                         "1.00",
                         "1"});
-#line 50
-      testRunner.And("it contians item", ((string)(null)), table4, "And ");
-#line 53
-      testRunner.And("it has set a date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 54
-   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 52
+      testRunner.And("it contians item", ((string)(null)), table5, "And ");
 #line 55
+      testRunner.And("it has set a date \'2017-07-07\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
+   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 57
    testRunner.Then("it should report as closed not blank", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -262,13 +271,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CloseAnEmptyInvoice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Close an empty invoice", ((string[])(null)));
-#line 57
-this.ScenarioSetup(scenarioInfo);
-#line 58
-   testRunner.Given("is an open invoice without items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 59
-   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 60
+   testRunner.Given("is an open invoice without items", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 61
+   testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 62
    testRunner.Then("I should get an error \"Cannot close an empty invoice.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -280,24 +289,24 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void CloseAnInvoiceWithoutSellDate()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Close an invoice without sell date", ((string[])(null)));
-#line 62
+#line 64
 this.ScenarioSetup(scenarioInfo);
-#line 63
+#line 65
    testRunner.Given("is an open invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "ProductId",
                         "Price",
                         "Amount"});
-            table5.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "1",
                         "1.00",
                         "1"});
-#line 64
-      testRunner.And("it contians item", ((string)(null)), table5, "And ");
-#line 67
+#line 66
+      testRunner.And("it contians item", ((string)(null)), table6, "And ");
+#line 69
    testRunner.When("I close it", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 68
+#line 70
    testRunner.Then("I should get an error \"Cannot close invoice without sell date.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -309,22 +318,22 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddItemToClosedInvoice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add item to closed invoice", ((string[])(null)));
-#line 70
+#line 72
 this.ScenarioSetup(scenarioInfo);
-#line 71
+#line 73
    testRunner.Given("is a closed invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "ProductId",
                         "Price",
                         "Amount"});
-            table6.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "1",
                         "5.00",
                         "3"});
-#line 72
-   testRunner.When("I add an item:", ((string)(null)), table6, "When ");
-#line 75
+#line 74
+   testRunner.When("I add an item:", ((string)(null)), table7, "When ");
+#line 77
    testRunner.Then("I should get an error \"Cannot modify closed invoice.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -336,13 +345,13 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SetSellDateOnClosedInvoice()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set sell date on closed invoice", ((string[])(null)));
-#line 77
-this.ScenarioSetup(scenarioInfo);
-#line 78
-   testRunner.Given("is a closed invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 79
-   testRunner.When("I set a sale date \'2017-07-01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 80
+   testRunner.Given("is a closed invoice", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 81
+   testRunner.When("I set a sale date \'2017-07-01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 82
    testRunner.Then("I should get an error \"Cannot modify closed invoice.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
