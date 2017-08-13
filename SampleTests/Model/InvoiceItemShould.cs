@@ -39,5 +39,15 @@ namespace SampleTests.Model
          Assert.Equal(expected, sut.GetHashCode() == other.GetHashCode());
       }
 
+      [Fact]
+      public void SupportKnownValuesDuringEqualityCheck()
+      {
+         var sut = new InvoiceItem("1", 1, 1);
+         Assert.False(sut.Equals(null));
+         Assert.False(sut.Equals((object)null));
+         Assert.True(sut.Equals((object)sut));
+         object other = "other type";
+         Assert.False(sut.Equals(other));
+      }
    }
 }
