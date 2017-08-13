@@ -13,7 +13,7 @@ namespace Sample.Domain
 
       public void Handle(IInvoice invoice, OpenInvoiceCommand command)
       {
-         if(!invoice.IsBlank) throw new InvalidOperationException("Only blank invoice can be opened.");
+         if(!invoice.IsBlank) RiseError(new InvalidOperationException("Only blank invoice can be opened."));
          Publish(new InvoiceOpenedEvent(command.CustomerId));
       }
 
@@ -32,19 +32,19 @@ namespace Sample.Domain
       public void Handle(IInvoice state, CloseInvoiceCommand command)
       {
          if(state.Items == null || state.Items.Count == 0)
-            throw new InvalidOperationException("Cannot close an empty invoice.");
+            RiseError(new InvalidOperationException("Cannot close an empty invoice."));
          if (state.Date == default(DateTime))
-            throw new InvalidOperationException("Cannot close invoice without sell date.");
+            RiseError(new InvalidOperationException("Cannot close invoice without sell date."));
          Publish(new InvoiceClosedEvent());
       }
 
-      private static void RequireOpenInvoice(IInvoice invoice)
+      private void RequireOpenInvoice(IInvoice invoice)
       {
          if (!invoice.IsOpen)
-            throw new InvalidOperationException(
+            RiseError(new InvalidOperationException(
                invoice.IsBlank
                ? "You need to open invoice befor modification."
-               : "Cannot modify closed invoice.");
+               : "Cannot modify closed invoice."));
       }
    }
 }

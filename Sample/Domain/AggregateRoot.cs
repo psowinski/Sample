@@ -17,6 +17,8 @@ namespace Sample.Domain
 
       protected void Publish(IEvent<TState> @event) => this.eventSubject.OnNext(@event);
 
+      protected void RiseError(Exception exception) => this.eventSubject.OnError(exception);
+
       public IDisposable Subscribe(IObserver<IEvent<TState>> observer) => this.eventSubject.Subscribe(observer);
    }
 }

@@ -51,16 +51,18 @@ namespace SampleTests.Domain
       [Fact]
       public void NotAllowToOpenAnInvoiceIfItIsNotBlank()
       {
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, new OpenInvoiceCommand("123")));
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object, new OpenInvoiceCommand("123")));
       }
 
       [Fact]
       public void NotAllowToAddItemToUnopenInvoice()
       {
          var addItemCommand = new AddInvoiceItemCommand(new InvoiceItem("1", 2m, 2));
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, addItemCommand));
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object, addItemCommand));
       }
 
       [Fact]
@@ -120,8 +122,9 @@ namespace SampleTests.Domain
       [Fact]
       public void NotAllowToCloseAnEmptyInvoice()
       {
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
       }
 
       [Fact]
@@ -129,8 +132,10 @@ namespace SampleTests.Domain
       {
          this.invoice.SetupGet(x => x.Items).Returns(
             new List<InvoiceItem> { new InvoiceItem("1", 1m, 1u) }.AsReadOnly());
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
+
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object, new CloseInvoiceCommand()));
       }
 
       [Fact]
@@ -152,12 +157,20 @@ namespace SampleTests.Domain
       }
 
       [Fact]
-      public void NotAllowToModifyClosedInvoice()
+      public void NotAllowToAddItemToClosedInvoice()
       {
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u))));
-         Assert.Throws<InvalidOperationException>(
-            () => this.invoiceRoot.Execute(this.invoice.Object, new SetInvoiceSellDateCommand(DateTime.Now)));
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object,
+                  new AddInvoiceItemCommand(new InvoiceItem("1", 1m, 1u))));
+      }
+
+      [Fact]
+      public void NotAllowToSetSellDateOnClosedInvoice()
+      {
+         using (this.invoiceRoot.Subscribe(_ => { }))
+            Assert.Throws<InvalidOperationException>(
+               () => this.invoiceRoot.Execute(this.invoice.Object, new SetInvoiceSellDateCommand(DateTime.Now)));
       }
    }
 }
